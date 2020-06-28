@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content=''>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+<style>
+.panel-default > .panel-custom-title {
+    background: #000000; color: #ffffff;
+}
+h3 {
+margin-top:0px;
+}
+</style>
+<title>Exoplanets on M dwarf stars</title>
+</head>
+<body>
+<div class='container' style='margin-top:20px'>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <div class='panel panel-default'>
+        <div class='panel-body panel-custom-title'>
+          <h1 class='text-center' style="font-size:33px;">A box-fitting implementation for the transit method detection of exoplanets</h1>
+          <p class='text-center' style="font-size:20px";><A href="mailto:t.ferreira@astro.ufsc.br">Thiago Ferreira dos Santos</A><sup>1</sup> &amp; <A href="mailto:saito@astro.ufsc.br"> Roberto Kalbusch Saito</A><sup>1</sup></p>
+          <p class='text-center' style="font-size:18px;"><sup>1</sup>Universidade Federal de Santa Catarina, Brazil</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <div class='panel panel-default'>
+        <div class='panel-body' align="justify">
+    
+          <p><b>Abstract</b><br>
+
+            It's not a mystery anymore the existence of planets orbiting different stars from our Sun. 
+            The detection and future characterisation of the so-called extrasolar planets, also known as exoplanets, 
+            is one of the main objectives of the VISTA Variables in the Vía Láctea Survey (VVV) and the VVV eXtended (VVV-X) surveys, 
+            which has been observed the Galactic bulge and disc regions during the past decade in five near-IR filters ZYJHKs and also presenting multi-epoch catalogue in K<sub>s</sub>-filter spanning from 2010 to 2015. 
+            We selected red dwarf stars based on PSF photometry data and distinguished red dwarfs from red giants stars, spurious to our current analysis, making use of 
+            the astrometric data provided by the VVV InfraRed Astrometric Catalogue (VIRAC) and the Gaia mission. 
+            This particular type of star becomes of great interest in exoplanetary studies due to its relative low dimensions and temperatures, 
+            which maximises researches on potentially habitable, water-supported rocky exoplanets orbiting such stars. 
+            Subsequently, we searched for relatively small periodic photometric variations implementing a Box-fitting least-squares method 
+            in order to detect and fit exoplanetary transits. Through parameters such as transit depth, width and orbital period, 
+            as well as knowing the spectral subtype of the central star, besides estimating its distance, it is possible to estimate the dimensions of the exoplanet, 
+            as the radius, surface temperature,  and mass, also its density and surface gravity, important factors in the characterisation of a certain exoplanet as to its habitability.</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div>
+        <div class='panel panel-default'>
+            <div class='panel-body' align="justify">
+              <h3><b>A brief overview on exoplanetary studies</b></h3>
+
+              Contemplating the formation of planets orbiting different stars from our Sun isn't something new and it has become unquestionable their existence nowadays. 
+              Since ancient Greece, on the first speculations about <i>many bodies of all sorts and shapes moving from the infinite into a great void</i> by Leucippus (5th cn. B.C.E.; Mayers 2014), 
+              to the existence of <i>infinite worlds both like and unlike this world of ours</i> by Epicurus (341-270 B.C.E.; Kragh 2014), exoplanetary studies evolved not only due to the advent
+              of new technologies but also as a result of the human capacity to discover its past, associate it to the present and speculate its future. 
+              The first Earth-like mass exoplanet was discovered orbiting a pulsar by Wolszczan and Frail (1992), and a few years later, the discovery of the first exoplanet orbiting a 
+              main-sequence star, the 51 Peg by Mayor and Queloz (1995) earned the <A href="https://www.nobelprize.org/prizes/physics/2019/summary/">2019 Nobel Prize in Physics</A> to the researches involved. In addition to these individual exoplanet detections, the first exoplanetary system discovered orbiting also a main-sequence star, the U And, was detected by Butler et al. (1999), consisting of 5 objects including the star itself.
+
+               <br><br>
+
+               The primary classification of a certain unknown-nature object as an exoplanet takes account into its clearly gravitational link to a star, if
+               it present enough mass to assume a hydrostatic balance (&lt;13 M<sub>Jup</sub>, which is approximately the mass limit where thermonuclear fusion
+               processes may occur), therefore presenting a round-shape and if its likely to <i>clear it's neighbouring region</i>. Some criteria can be used in determining the last characteristic, which includes the ability of a 
+               body to scatter smaller masses out of its orbital region for a huge period of time, also known as the &Lambda;-discriminant (Stern and Levison 2002), 
+               the &mu;-discriminant to separate bodies orbiting stars into planets and non-planets (Soter 2006), and also the &Pi;-discriminant, that allows us to categorise a body based only on
+               its mass, semi-major axis and its central star mass (Margot 2015). 
+               
+               $$ \Pi = \frac{m}{M^{5/2}a^{9/8}} k \gt 1, \quad k = \sqrt{3} C^{-\frac{3}{2}} (100 t_{\odot})^{\frac{3}{4}}\frac{M_{\oplus}}{M_{\odot}} $$
+               
+               Unlike the other discriminant mentioned, &Pi; is totally theoretically based and does not use data from the Solar System planets in its formalism,
+               making it applicable to exoplanetary systems of the most varied configurations different from ours. It is important to remark that the &mu;-discriminant requires an
+               accurate census of the orbital zone and the &Pi;-discriminant is only applicable to circular orbits.
+
+            </em></p>
+        
+        </div>
+        <div class='panel panel-default'>
+        <div class='panel-body' align="justify">
+          <h3><b>M dwarf stars selection</b></h3>
+          <p> 
+              As they are relatively cooler and smaller compared to the Sun, red dwarf stars present strong lines of TiO, CaH, and VO 
+              in their optical spectra, besides FeH and H<sub>2</sub>O molecules in their infrared spectrum (Baker 1938, Mould 1976). 
+              The choice of such objects in our analysis is primarily based on the fact that their maximum emission occurs in near-infrared wavelengths, 
+              observation range of the VVV Survey. 
+              Since those objects present long life spans, whose energy generation is due to the <i>pp</i>-chain (<i>p</i> + <i>p</i> &rarr; <sup>2</sup><sub>1</sub>D + e<sup>+</sup> + &nu;<sub>e<sup>-</sup></sub>) 
+              and given the large fraction of those present in the Galaxy, red dwarf stars become one of the main targets in the search of potentially habitable exoplanets. 
+              <br><br>
+              
+              <p><iframe width='100%' height='500px' src="https://www.youtube.com/embed/LS-VPyLaJFM">
+                </iframe></p>
+                <p class='small'><em><b>Movie 1:</b> The Last Star in the Universe – Red Dwarfs Explained. <i>Credit: </i><A href="https://www.youtube.com/channel/UCsXVk37bltHxD1rDPwtNM8Q">Kurzgesagt – In a Nutshell.</A></em></p>
+
+              <br>
+
+              Making use of <A href="https://vvvsurvey.org/">VVV Survey</A> (Minniti et al. 2010) multicolour data for field <i>b294</i> located towards the Milky Way bulge (1.5<sup>°</sup> x 1<sup>°</sup> centred at <i>l</i>, <i>b</i> = 3.88<sup>°</sup>, -3.14<sup>°</sup>), 
+              we selected M dwarf stars in order to analyse photometric variations due to exoplanets-like objects orbiting such stars. 
+              Several effects increase the likelihood of life on M dwarf planets, including their abundance in the Galaxy (&asymp;85&#37; of 100+ billion stars) and the intense cloud formation on the star-facing side of tidally locked planets, responsible to reduce the overall thermal flux and equilibrium temperature differences between two sides of a planet (Yang et al. 2013).
+              
+              Both giant and red dwarf stars of spectral subtype M present similar near-IR colours range, for instance in <i>(J-H)</i> and <i>(H-K<sub>s</sub>)</i>
+              colours, which makes the photometric selection solely inefficient. We adopted <i>H</i><sub>J</sub> &gt; 68.9<i>(J-K<sub>s</sub>)</i> - 50.7 for M dwarf stars in order 
+              to perform a better distinction between such objects making use of the astrometric data from the <A href="https://www.eso.org/sci/publications/announcements/sciann17222.html">VIRAC</A> (Smith et al. 2018), 
+              calculating the reduced proper motion of selected objects according to the equation below. Moreover, from the <A href="https://sci.esa.int/web/gaia">Gaia DR2 data</A> (Gaia Collaboration et al. 2018), 
+              we selected only stars with parallax measurements larger than <SPAN STYLE="text-decoration:overline">&omega;</SPAN> = <i>1</i> <i>mas</i>, especially due 
+              to the relative proximity of M dwarf stars in the magnitude range of our data, which consequently present high proper motion, in contrast to red giant stars, 
+              further away however reddish due to extinction effects in the Milky Way.
+              
+              <br>
+
+              $$ \mbox{H}_{J} = J + 5\log_{10}({\mu}) \doteq J + 5\log_{10}\left(\sqrt{\mu_{\alpha\cos{\delta}}^2 + \mu_\delta^2}\right) $$
+
+            <br><br>
+
+            <p><img src='https://raw.githubusercontent.com/thiagofst/exostatistics/master/plots_mdwarfs/jksreduced.png' width='49%' height='auto'> <img src='https://raw.githubusercontent.com/thiagofst/exostatistics/master/plots_mdwarfs/plxks.png' width='49%' height='auto'></p>
+            <p class='small'><em>
+                <b>Figure 1</b>: <i>Left:</i> 
+
+                Relationship between <i>(J-K<sub>s</sub>)</i> colour and the reduced proper motion for stars with K<sub>s</sub>-mag &lt; 16.5<sup>m</sup>.
+                Purple dots represent M dwarf stars and blue dots likely red giant contaminants that lies above the black line that represents the H<sub>J</sub> as a function of <i>(J-K<sub>s</sub>)</i>.
+                <i>Right:</i> Relationship between parallax and K<sub>s</sub>-mag for selected stars. Black dots represent red giant stars and the colour-index the extinction levels in K<sub>s</sub> filter.
+
+            </em></p>
+
+            <br>
+
+            Photometric variations in exoplanet-M dwarf system are relatively small, typically about 0.15<sup>m</sup> in K<sub>s</sub> filter (&lambda;<sub>Ks</sub> = 2.14 nm), 
+            therefore we arbitrarily limited our selection in the VVV K<sub>s</sub>-band PSF light-curves to K<sub>s</sub> &lt; 16.5<sup>m</sup>, 
+            consequently &sigma;<sub>Ks</sub> &lt 0.1<sup>m</sup>, which is expected to reduce the incidence of false positives in our analysis. 
+            Furthermore, based on their near-IR colours, we estimated the spectral subtype for M dwarf class as a function of the colours <i>&Gamma; &equiv; Y-J</i>, <i>&Pi; &equiv; Y-K<sub>s</sub></i> 
+            and <i></i>&Psi; &equiv; H-K<sub>s</sub></i>, following equation below, also estimated the distance of such objects making use of the observational apparent and theoretical magnitudes in J filter 
+            (&lambda; = 1.25 nm; Rojas-Ayala et al. 2014) according to <i>d &equiv; m<sub>J</sub> - M<sub>J</sub> = 5 log(d) - 5</i>.
+            
+            <br>
+            
+            $$ \left[\mbox{MX}(\Gamma,\Pi,\Psi)\right]_{\mbox{x}=0}^{&lt; 10} =  5.394(\Gamma)+4.370(\Gamma)^{2}+24.325(\Pi)-7.614(\Pi)^{2}+7.063(\Psi) - 20.779 $$
+
+            <p><img src='https://raw.githubusercontent.com/thiagofst/exostatistics/master/plots_mdwarfs/spectral_distance.png' width='49%' height='auto'> <img src='https://raw.githubusercontent.com/thiagofst/exostatistics/master/plots_mdwarfs/loc.png' width='49%' height='auto'></p>
+            <p class='small'><em>
+                <b>Figure 2</b>: <i>Left:</i> Spectral subtype and distance relationship for M dwarf stars selected. White lines represent average values for those parameters
+                <i>Right</i> Location in Galactic coordinates of such stars, with colours indicating the extinction in K<sub>s</sub>-filter toward the region observed.
+            </em></p>
+
+            <br>
+
+            It is not surprising to say that one of the main objective of exoplanetary studies nowadays are focused on the detection and subsequent characterisation of potentially habitable
+            water-supported rocky exoplanets, in other words, objects orbiting the so-called habitable zone (HZ) of its central star (Kopparapu et al. 2013). 
+            Exoplanets with masses up to &approx;0.10 M&oplus; represent a potential study laboratory for the origin of organic life, however, the
+            detection of minerals only found in meteorites, such as (Fe,Cr)<sub>1.15</sub>(Ti,Fe)<sub>2</sub>S<sub>4</sub> (Heideite), Na<sub>2</sub>Mg<sub>4</sub>Cr<sup>3+</sup><sub>2</sub>(Si<sub>6</sub>O<sub>18</sub>O<sub>2</sub>)
+            (Krinovite) and Fe<sup>0+</sup><sub>1.5</sub>Ni<sub>0.5</sub>P (Barringerite) for instance, may indicate numerous different chemical compositions in exoplanetary systems, 
+            preventing in a certain level environments conducive to the presence and maintenance of organic life (Gaidos and Selsis 2007). <br><br>
+
+            <p><img src='https://raw.githubusercontent.com/thiagofst/exostatistics/master/plots_mdwarfs/sigmaks.png' width='49%' height='auto'> <img src='https://raw.githubusercontent.com/thiagofst/exostatistics/master/plots_mdwarfs/pmgaia.png' width='49%' height='auto'></p>
+            <p class='small'><em>
+                <b>Figure 3</b>: <i>Left:</i> Relationship between K<sub>s</sub>-mag and &sigma;<sub>Ks</sub> for 897.672 total stars located on field <i>b294</i>, M dwarf stars (red dots), likely contaminant red giant stars (blue dots).
+                We remark that the arbitrary choice of objects with K<sub>s</sub>-mag smaller than 16.5<sup>m</sup> is fundamentally based on the magnitude-uncertainties relationship and the expected relatively low depth of a planetary transit event compared to the brightness of the star in a quiescent state.
+                <i>Right:</i> Proper motion diagram for M dwarf stars selected.
+            </em></p>
+
+
+        </div>
+      </div>
+      <div class='panel panel-default'>
+        <div class='panel-body'>
+          <h3><b>The Box-fitting least squares (BLS) method</b></h3>
+        <p>
+            In opposition to commonly implemented <A href="https://docs.astropy.org/en/stable/api/astropy.timeseries.LombScargle.html">Fourier-like sinusoidal methods</A> (e.g. Ferreira et al. 2018, Ferreira et al. 2019, VanderPlas 2018), the BLS is a statistical method developed by Kóvacs et al. (2002) in order to detect transit-like 
+            candidates by potential exoplanets (even exoplanetary systems and/or exomoons) modelling a periodic upside-down box in a time-series photometric data-set 
+            &Lambda;&doteq;{t<sub>k</sub>, y<sub>k</sub>, &sigma;<sub>k</sub>, k = 1,2,...,n}. Four main parameters derived from the Python implementation <i><A href="https://docs.astropy.org/en/stable/timeseries/bls.html">astropy</A></i>
+            used in this work are the orbital period (P<sub>orb</sub>), transit duration (&tau;), transit depth (&delta;) and a reference mid-transit time by the first event (&phi;). 
+            The algorithm works as follow: 
+            <ul>
+                <li>select a period and event duration grids that best apply to the case of M dwarf stars orbited by exoplanets;</li>
+                <li>apply a <i>sigma-clip</i> &sigma; = 3 cut in &Lambda;, which removes some outliers; </li>
+                <li>apply a minimisation of <i>O(i<sub>1</sub>,i<sub>2</sub>)</i>, a function of the ingress and egress times, which determines the width and also the position of the <i>box</i> on a phase diagram.</li>
+              </ul>
+              
+            Following the definitions:
+
+            $$ \mathcal{L} \doteq \Delta K_\mathrm{s}=\max{(\delta)\equiv\mathcal{H}-\mathcal{L}} $$
+            
+            $$ \mathcal{H}\doteq \Delta K_\mathrm{s}\approx0 $$
+            
+            the differentiation &PartialD;<sub>(L,H)</sub><i>O(i<sub>1</sub>,i<sub>2</sub>)</i>, yields to the minimisation of the residual sum of squares.
+
+            $$ \mathcal{O}(i_1,i_2) = \sum_{i=1}^{i_1 - 1}\tilde\omega_i^2(\tilde{x_i} - \mathcal{H})^2 + \sum_{i=i_1}^{i_2}\tilde\omega_i^2(\tilde{x_i} - \mathcal{L})^2 + \sum_{i = i_2 + 1}^{n}\tilde\omega_i^2(\tilde{x_i} - \mathcal{H})^2 $$
+            
+            $$ \tilde x_i = \left \{ \begin{matrix} \mathcal{L}, & \mbox{if }i\in[i_1,i_2] \\ \mathcal{H}, & \mbox{if }i\in[1,i_1)\cup(i_2,n]\end{matrix} \right.$$
+            
+            <br>
+            
+            Furthermore, the maximisation of <i>O(i<sub>1</sub>,i<sub>2</sub>)</i> yields to an (i<sub>1</sub>,i<sub>2</sub></i>)-independent equation, 
+            with 
+
+            $$ \mathcal{O} = \sum_{i=1}^{n}\tilde\omega_i^2\tilde x_i^2 - \frac{\gamma^2}{\beta - \beta^2} $$
+
+            It is remarkable to note that the third term of the equation above is (i<sub>1</sub>,i<sub>2</sub>)-independent, so we can define the Signal-Residue 
+            (&#1064;) following equation below, which can be used to characterise the quality and the significance of the signal found.
+
+            $$ \mbox{&#1064;} = \max \left[\sqrt{\frac{\gamma^2}{\beta-\beta^2}}\right]$$
+
+            Consequently, we can define a Signal Detection Efficiency (SDE) criteria according to:
+
+            $$ \mbox{SDE} = \frac{\max\left({&#1064;}\right)-\overline{&#1064;}}{\sigma(&#1064;)} $$
+            
+        </p>
+      <div class='panel panel-default'>
+        <div class='panel-body'>
+          <h3>Primary results</h3>
+          <p>
+            We performed initially a cross-match between the b294 field VVV catalogue, containing 4.591.100 stars with the Gaia DR2 and the VIRAC catalogues, which resulted on
+            897.672 stars. A total of 24.360 M dwarf stars were selected after the photometric and astrometric processes previously described. After applied a Box-fitting least-squares algorithm,
+            we selected 1195 stars following: 
+            <ul>
+              <li> Orbital period smaller than <i>6</i> days;</li>
+              <li> SDE criteria bigger than <i>6</i>, which may represent a good signal quality found;</li>
+              <li> Duration of transit events corresponding to 20&percnt; of the orbital period;</li>
+              <li> Since planetary transit events cause an increase in the magnitude of a given observed star, we selected stars with transit depth &delta; &gt; 0</li>
+              <li></i> &Delta;K<sub>s</sub> &gt; 0.5<sup>m</sup>, in order to obtain a better distinction between the photometric levels <i>H</i> and <i>L</i>.</li>
+            </ul>
+            
+            <br><br>
+            <img src='https://www.google.com/search?q=missing&tbm=isch&ved=2ahUKEwiLhtrDrJ3qAhVLBLkGHZJgBPIQ2-cCegQIABAA&oq=missing&gs_lcp=CgNpbWcQAzIFCAAQsQMyBAgAEEMyAggAMgIIADICCAAyBAgAEEMyAggAMgIIADICCAAyBAgAEEM6BAgjECdQ5xpY1yNgmCZoAHAAeAKAAa4EiAGOEpIBCTItNS4wLjEuMZgBAKABAaoBC2d3cy13aXotaW1n&sclient=img&ei=psv0XoubI8uI5OUPksGRkA8&bih=960&biw=1972#imgrc=GvR2YXzHNjYnZM' width='100%' height='auto'></a></p>
+
+          <p class='small'><em>
+            <b>Figure 4:</b> Phase diagrams examples for selected objects, with <i>phase</i> defined as &varphi; = mod(&Lambda;<sub>t<sub>k</sub></sub>, P<sub>orb</sub>) &in; [0,1]. 
+                The main parameters for exoplanetary transits events are presented in the top-right corner of each panel.</em></p>
+
+
+        </div>
+    </div>
+  </div>
+  <div class='panel panel-default'>
+    <div class="panel-body">
+            
+    <h4><b>Bibliography</b></h4>
+    <p class='small'>
+        Butler R. P., et al., ApJ, 526, 916 (1999), <A href="https://ui.adsabs.harvard.edu/abs/1999ApJ...526..916B">ADS</A><br>
+        Ferreira T., Saito R. K., Gran F., Minniti D., Masetti N., RNAAS, 2, 39 (2018), <a href='https://ui.adsabs.harvard.edu/abs/2018RNAAS...2...39F'>ADS</a><br>
+        Ferreira T., Saito R. K., Minniti D., Navarro M. G., Ramos R. C., Smith L., Lucas P. W., MNRAS, 486, 1220 (2019), <A href='https://ui.adsabs.harvard.edu/abs/2019MNRAS.486.1220F'>ADS</A><br>
+        Gaia Collaboration, et al, A&A, 616, A1 (2018), <a href='https://ui.adsabs.harvard.edu/abs/2018A%26A...616A...1G'>ADS</a><br>
+        Gaidos E., Selsis F., prpl.conf, 929, prpl.conf (2007), <A href='https://ui.adsabs.harvard.edu/abs/2007prpl.conf..929G'>ADS</A><br>
+        Kopparapu R. K., et al., ApJ, 765, 131 (2013), <a href='https://ui.adsabs.harvard.edu/abs/2013ApJ...765..131K'>ADS</a><br>
+        Kovács G., Zucker S., Mazeh T., A&A, 391, 369 (2002), <a href='https://ui.adsabs.harvard.edu/abs/2002A&A...391..369K'>ADS</a><br>
+        Kragh, H., Higher Speculations: Grand Theories and Failed Revolutions in Physics and Cosmology, Oxford Press (2014)<br>
+        Kurzgesagt – In a Nutshell -  The Last Star in the Universe – Red Dwarfs Explained, <a href="https://www.youtube.com/watch?v=LS-VPyLaJFM">Link to YouTube video</a><br>
+        Margot J.-L., AJ, 150, 185 (2015), <A href='https://ui.adsabs.harvard.edu/abs/2015AJ....150..185M/'>ADS</A><br>
+        Mayers, K., Leucippus of Miletus, Biographical Encyclopedia of Astronomers (2014), <A href='https://ui.adsabs.harvard.edu/abs/2014bea..book.1276M'>ADS</A><br>
+        Mayor, M. &amp; Queloz, D., Nature 378, 355 (1995), <a href='https://ui.adsabs.harvard.edu/abs/1995Natur.378..355M/abstract' target='_blank'>ADS</a><br>
+        Minniti D., et al. NewA, 15, 433 (2010), <A href='https://ui.adsabs.harvard.edu/abs/2010NewA...15..433M'>ADS</A><br>
+        Rojas-Ayala B., Iglesias D., Minniti D., Saito R. K., Surot F., A&A, 571, A36 (2014), <A href='https://ui.adsabs.harvard.edu/abs/2014A%26A...571A..36R'>ADS</A><br>
+        Smith L. C., et al., MNRAS, 474, 1826 (2018), <A href='https://ui.adsabs.harvard.edu/abs/2018MNRAS.474.1826S'>ADS</A><br>
+        Soter S., AJ, 132, 2513 (2006), <A href='https://ui.adsabs.harvard.edu/abs/2006AJ....132.2513S'>ADS</A><br>
+        Stern S. A., Levison H. F., HiA, 12, 205 (2002), <A href='https://ui.adsabs.harvard.edu/abs/2002HiA....12..205S/'>ADS</A><br>
+        VanderPlas, J. T., ApJS, 236, 16 (2018), <A href='https://ui.adsabs.harvard.edu/abs/2018ApJS..236...16V'>ADS</A><br>
+        Wolszczan, A. &amp; Frail, D. A., Nature 355, 145 (1992), <a href='https://ui.adsabs.harvard.edu/abs/1992Natur.355..145W/abstract' target='_blank'>ADS</a><br>
+        Yang J., Cowan N. B., Abbot D. S., ApJL, 771, L45 (2013), <A href='https://ui.adsabs.harvard.edu/abs/2013ApJ...771L..45Y'>ADS</A><br><br>
+
+
+        
+  </p>
+  </div>
+</body>
+</html>
+
