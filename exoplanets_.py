@@ -15,10 +15,10 @@ plt.rcdefaults()
 plt.rc('text', usetex = True)
 plt.rc('font', family = 'serif')
 
-os.chdir('./plots')
+os.chdir('/home/volkoff/VVV/exoplanets/plots')
 
 # EXO: exoplanet.eu
-exo_ = ascii.read('./exoplanet.eu_catalog.csv')
+exo_ = ascii.read('/home/volkoff/VVV/exoplanets/exoplanet.eu_catalog.csv')
 m = exo_['planet_status'] == 'Confirmed'
 exo = exo_[m]
 # Flags for detection methods
@@ -31,11 +31,11 @@ I = exo['detection_type'] == 'Imaging'
 names = ['id', 'binary', 'mass', 'radius', 'period', 'a', 'e', 'per', 'long', 'asc', 'incl',
          'teq', 'age', 'method', 'year', 'updated', 'ra', 'dec', 'dist', 's_mass', 's_radius',
          's_feh', 's_teff', 's_age']
-oec = pd.read_csv('./open_exoplanet_catalogue.txt', skiprows = 30, names = names)
+oec = pd.read_csv('/home/volkoff/VVV/exoplanets/open_exoplanet_catalogue.txt', skiprows = 30, names = names)
 
 # KOI: Kepler Objects of Interest (!wget 'http://exoplanetarchive.ipac.caltech.edu/cgi-bin/nstedAPI/nph-nstedAPI?table=cumulative&select=*' -O kois.csv)
 # https://exoplanetarchive.ipac.caltech.edu/docs/API_kepcandidate_columns.html Documentation
-kois = pd.read_csv("kois.csv")
+kois = pd.read_csv("/home/volkoff/VVV/exoplanets/kois.csv")
 
 m = kois.koi_disposition == "CONFIRMED" # Flag for confirmed exoplanets only
 
@@ -104,18 +104,32 @@ plt.close()
 
 # Plot III
 # Planet mass (Mjup) vs. Planet radius with EXO
-(x, y) = exo['mass'], exo['radius']
+j = exo_['planet_status'] != 'Confirmed' # Unconfirmed then
+(x, y) = exo_[j]['mass'], exo_[j]['radius']
+(xT, yT)	= exo[T]['mass'], exo[T]['radius']
+(xR, yR) 	= exo[R]['mass'], exo[R]['radius']
+(xG, yG) 	= exo[G]['mass'], exo[G]['radius']
+(xI, yI) 	= exo[I]['mass'], exo[I]['radius']
 
 plt.figure()
 plt.grid(True, alpha = 0.4)
 
-plt.xlabel(r'Planet mass (M/M$_{Jup}$)', fontsize = 10)
-plt.xlabel(r'Planet radius (R/R$\oplus$)', fontsize = 10)
+plt.xlim(1e-4, 1e2)
+plt.ylim(1e-3, 1e2)
 
-plt.loglog(x, y, '.', color = 'black', ms = 4)
+plt.xlabel(r'Planet mass (M/M$_{Jup}$)', fontsize = 10)
+plt.ylabel(r'Planet radius (R/R$\oplus$)', fontsize = 10)
+
+plt.loglog(y, x, ".", color = "#6baed6", ms = 4, alpha = 0.3, zorder = -1, label = r'__nolabel__') 
+plt.loglog(xT, yT, '.', color = 'black', ms = 4, label = r'Transit')
+plt.loglog(xR, yR, '.', color = 'darkmagenta', ms = 4, label = r'Radial velocity')
+plt.loglog(xG, yG, '.', color = 'yellow', ms = 4, label = r'Gravitational Microlensing')
+plt.loglog(xI, yI, '.', color = 'navy', ms = 4, label = r'Imaging')
+
+plt.legend(fontsize = 10, markerscale = 1, shadow = 'True', loc = 0);
 
 plt.tight_layout(); plt.savefig('exo_mass_radius.png', dpi = 200)
-plt.close()
+plt.show()
 
 # Plot IIII
 # Relationship between semi major axis and masses
