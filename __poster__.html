@@ -175,46 +175,56 @@ margin-top:0px;
         <div class='panel-body'>
           <h3><b>The Box-fitting least squares (BLS) method</b></h3>
         <p>
+
             In opposition to commonly implemented <A href="https://docs.astropy.org/en/stable/api/astropy.timeseries.LombScargle.html">Fourier-like sinusoidal methods</A> (e.g. Ferreira et al. 2018, Ferreira et al. 2019, VanderPlas 2018), the BLS is a statistical method developed by Kóvacs et al. (2002) in order to detect transit-like 
             candidates by potential exoplanets (even exoplanetary systems and/or exomoons) modelling a periodic upside-down box in a time-series photometric data-set 
             &Lambda;&doteq;{t<sub>k</sub>, y<sub>k</sub>, &sigma;<sub>k</sub>, k = 1,2,...,n}. Four main parameters derived from the Python implementation <i><A href="https://docs.astropy.org/en/stable/timeseries/bls.html">astropy</A></i>
             used in this work are the orbital period (P<sub>orb</sub>), transit duration (&tau;), transit depth (&delta;) and a reference mid-transit time by the first event (&phi;). 
+            
             The algorithm works as follow: 
             <ul>
                 <li>select a period and event duration grids that best apply to the case of M dwarf stars orbited by exoplanets;</li>
                 <li>apply a <i>sigma-clip</i> &sigma; = 3 cut in &Lambda;, which removes some outliers; </li>
                 <li>apply a minimisation of <i>O(i<sub>1</sub>,i<sub>2</sub>)</i>, a function of the ingress and egress times, which determines the width and also the position of the <i>box</i> on a phase diagram.</li>
               </ul>
-              
-            Following the definitions:
 
-            $$ \mathcal{L} \doteq \Delta K_\mathrm{s}=\max{(\delta)\equiv\mathcal{H}-\mathcal{L}} $$
-            
-            $$ \mathcal{H}\doteq \Delta K_\mathrm{s}\approx0 $$
-            
-            the differentiation &PartialD;<sub>(L,H)</sub><i>O(i<sub>1</sub>,i<sub>2</sub>)</i>, yields to the minimisation of the residual sum of squares.
+            It is noteworthy that the transit-time event <i>L</i> is relatively shorter in comparison to the quiescent magnitude of the star <i>H</i> in those systems where the central star and the exoplanet are close.
+            Due to the temporal non-regularity of the variability data from the VVV Survey, we opted for ignoring limbdarkening effects at the beginning as well as at the end of the transit
+            event, represented by <i>i<sub>1</sub></i> and <i>i<sub>2</sub></i> respectively. We define:
 
-            $$ \mathcal{O}(i_1,i_2) = \sum_{i=1}^{i_1 - 1}\tilde\omega_i^2(\tilde{x_i} - \mathcal{H})^2 + \sum_{i=i_1}^{i_2}\tilde\omega_i^2(\tilde{x_i} - \mathcal{L})^2 + \sum_{i = i_2 + 1}^{n}\tilde\omega_i^2(\tilde{x_i} - \mathcal{H})^2 $$
+            $$ \mathcal{L} \doteq \Delta K_\mathrm{s}=\max{(\delta)\equiv\mathcal{H}-\mathcal{L}}, $$
+            
+            $$ \mathcal{H}\doteq \Delta K_\mathrm{s}\approx0. $$
+            
+            Considering an arbitrary signal optimisation interval, the residual sum of squares can be expressed according to:
+
+            $$ \mathcal{O}(i_1,i_2) = \sum_{i=1}^{i_1 - 1}\tilde\omega_i^2(\tilde{x_i} - \mathcal{H})^2 + \sum_{i=i_1}^{i_2}\tilde\omega_i^2(\tilde{x_i} - \mathcal{L})^2 + \sum_{i = i_2 + 1}^{n}\tilde\omega_i^2(\tilde{x_i} - \mathcal{H})^2, $$
             
             $$ \tilde x_i = \left \{ \begin{matrix} \mathcal{L}, & \mbox{if }i\in[i_1,i_2] \\ \mathcal{H}, & \mbox{if }i\in[1,i_1)\cup(i_2,n]\end{matrix} \right.$$
             
-            <br>
+            The differentiation &#x2202;<sub>(L,H)</sub><i>O</i>(i<sub>1</sub>,i<sub>2</sub>) = 0, yields to analytical expressions for the magnitude levels <i>H</i>> and <i>L</i>, 
+            making use of 
+            <i>&beta; </i>&equiv; &Sigma;<sub>i<sub>1</sub></sub><sup>i<sub>2</sub></sup><SPAN STYLE="text-decoration:tilde;">&omega;</SPAN><sub>i</sub><sup>2</sup> and 
+            <i>&gamma; </i>&equiv; &Sigma;<sub>i<sub>1</sub></sub><sup>i<sub>2</sub></sup><SPAN STYLE="text-decoration:tilde;">&omega;</SPAN><sub>i</sub><sup>2</sup><SPAN STYLE="text-decoration:tilde;">x;</SPAN><sub>i</sub>
+
+            $$ \mathcal{H} = -\frac{\gamma}{1-\beta} \quad \mbox{and} \quad \mathcal{L} = \frac{\gamma}{\beta}. $$ 
             
-            Furthermore, the maximisation of <i>O(i<sub>1</sub>,i<sub>2</sub>)</i> yields to an (i<sub>1</sub>,i<sub>2</sub></i>)-independent equation, 
-            with 
+            Therefore, we can re-write the expression for the residual sum of squares according to
 
-            $$ \mathcal{O} = \sum_{i=1}^{n}\tilde\omega_i^2\tilde x_i^2 - \frac{\gamma^2}{\beta - \beta^2} $$
+            $$ \mathcal{O} = \sum_{i=1}^{n}\tilde\omega_i^2\tilde x_i^2 - \frac{\gamma^2}{\beta - \beta^2}. $$
 
-            It is remarkable to note that the third term of the equation above is (i<sub>1</sub>,i<sub>2</sub>)-independent, so we can define the Signal-Residue 
-            (&#1064;) following equation below, which can be used to characterise the quality and the significance of the signal found.
+            It is remarkable to note that the third term of equation above is (i<sub>1</sub>$,i<sub>2</sub>)-independent, so we can define the Signal-Residue (&#1064;) following equation below, which can be used to characterise the quality and the significance of the signal found.
 
-            $$ \mbox{&#1064;} = \max \left[\sqrt{\frac{\gamma^2}{\beta-\beta^2}}\right]$$
+            $$ &#1064; = \max{\left[\sqrt{\frac{\gamma^2}{\beta-\beta^2}}\right]}. $$
 
-            Consequently, we can define a Signal Detection Efficiency (SDE) criteria according to:
+            Furthermore, we define a Signal Detection Efficiency (SDE) criteria as function of the Signal-Residue according to Kóvacs et al. (2002):
 
-            $$ \mbox{SDE} = \frac{\max\left({&#1064;}\right)-\overline{&#1064;}}{\sigma(&#1064;)} $$
-            
-        </p>
+            $$ \mbox{SDE} = \frac{\max\left({&#1064}\right)-\overline{&#1064}}{\sigma(&#1064)} $$
+
+
+
+
+          </p>
       <div class='panel panel-default'>
         <div class='panel-body'>
           <h3>Primary results</h3>
