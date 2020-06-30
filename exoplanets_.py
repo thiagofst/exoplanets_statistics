@@ -129,7 +129,7 @@ plt.loglog(xI, yI, '.', color = 'navy', ms = 4, label = r'Imaging')
 plt.legend(fontsize = 10, markerscale = 1, shadow = 'True', loc = 0);
 
 plt.tight_layout(); plt.savefig('exo_mass_radius.png', dpi = 200)
-plt.show()
+plt.close()
 
 # Plot IIII
 # Relationship between semi major axis and masses
@@ -146,6 +146,9 @@ plt.loglog((exo[I]['semi_major_axis']), (exo[I]['mass']), '.', color = 'yellow',
 
 plt.loglog(a, mass/mass[4], 'og', ms = 4)
 
+snow_line = 2.7 # Snow line 170 K at 2.7 AU (Hayashi, 1981)[
+
+plt.axvline(snow_line, lw = 1.5, color = 'blue', label = '__nolabel__')
 plt.legend(fontsize = 10, markerscale = 1, shadow = 'True', loc = 0);
 plt.tight_layout(); plt.savefig('a-Mass.png', dpi = 200)
 plt.close()
@@ -248,14 +251,17 @@ m = kois.koi_disposition == "CONFIRMED" # Flag for confirmed exoplanets only
 
 plt.figure()
 plt.grid(True, alpha = 0.4)
-plt.xlim(1e2, 1e4); plt.ylim(2.5e3, 1e4)
+plt.xlim(0.9e2, 1e4); plt.ylim(2.6e3, 1e4)
+
+sun_teff = 5778
+earth_teff = 287.15 # K. https://www.space.com/17816-earth-temperature.html#:~:text=GISS%20data%20show%20global%20average,57%20F%20(14%20C).
 
 plt.xlabel(r'Planet surface temperature [K]', fontsize = 10); 
 plt.ylabel(r'Star effective temperature [K]', fontsize = 10); 
 
 plt.loglog(tp, ts, '.k', ms = 4); 
+plt.loglog(earth_teff, sun_teff, '.r', ms = 10); 
 plt.loglog(tp_u, ts_u, ".", color = "#6baed6", ms = 4, alpha = 0.3, zorder = -1) 
 
 plt.tight_layout(); plt.savefig('teff.png', dpi = 200); 
-
-plt.close()
+plt.show()
