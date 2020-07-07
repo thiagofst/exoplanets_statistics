@@ -6,4 +6,4 @@ Exoplanets statistics from:
 \
 [Extrasolar Planet's Catalogue from Kyoto University (EXOKyoto)](http://www.exoplanetkyoto.org/)
 
-Last update: 16 Jun 2020
+Last update: 07 July 2020
