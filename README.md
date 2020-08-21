@@ -1,9 +1,9 @@
-Exoplanets statistics from:
+July 07, 2020
+
+Exoplanets statistics from catalogues:
 
 [The Extrasolar Planets Encyclopaedia](http://exoplanet.eu/)\
 [Open Exoplanet Catalogue (OEC)](http://www.openexoplanetcatalogue.com/)\
-[Kepler Objects of Interest (KOIs)](https://exoplanetarchive.ipac.caltech.edu/docs/PurposeOfKOITable.html)\
-\
-[Extrasolar Planet's Catalogue from Kyoto University (EXOKyoto)](http://www.exoplanetkyoto.org/)
+[Kepler Objects of Interest (KOIs)](https://exoplanetarchive.ipac.caltech.edu/docs/PurposeOfKOITable.html)\\
 
-Last update: 07 July 2020
+Many more useful pieces of information at [Extrasolar Planet's Catalogue from Kyoto University (EXOKyoto)](http://www.exoplanetkyoto.org/)
